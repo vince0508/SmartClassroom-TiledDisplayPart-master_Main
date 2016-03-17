@@ -1,0 +1,587 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Tactile</title>
+    <meta name="description" content="Table Tactile" />
+    <meta name="author" content="Adam Tiamiou - Benoit Perruche" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/header.css" />
+    <link rel="stylesheet" type="text/css" href="css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="css/window.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/toolbar.css" />
+
+   
+    <script src="/includes/jquery/jquery.js"></script>
+    <script src="includes/modernizr.custom.js"></script>
+    <script src="includes/classie.js"></script>
+    <script src="includes/mlpushmenu.js"></script>
+    <!-- Load local lib and tests. -->
+    <script src="/includes/jquery.pep.js"></script>
+    <script src="/includes/interact.js"></script>
+    <script src="/includes/jester.js"></script>
+    <script src="/includes/flowplayer.min.js"></script>
+    <script src="/includes/pdf.js"></script>
+
+    <!--<script type="text/javascript" src="C:\configTable.ini"></script>-->
+    <script src="/nowjs/now.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/callback.js"></script>
+    <script src="/js/nowCallback.js"></script>
+    <script src="/js/loadMedia.js"></script>
+    <script src="/js/controlBar.js"></script>
+    <script src="/js/apps/ping_pong.js"></script>
+    <script src="/js/apps/drawing.js"></script>
+    <script src="/js/apps/interactif.js"></script>
+    <script src="/js/apps/snake.js"></script>
+</head>
+<body>
+    <label class="fullscreen-controls transparent" id="fullscreen-controls-id" style="display: none; z-index:1">
+        <label id="close-fullscreen">[ / ]</label>
+        <label id="fullscreen-close-window">X</label>
+    </label>
+
+    <div class="container">
+        <!-- Push Wrapper -->
+        <div class="mp-pusher" id="mp-pusher">
+            <!-- mp-menu -->
+            <nav id="mp-menu" class="mp-menu">
+                <div class="mp-level">
+                    <h2 class="icon icon-world">Start</h2>
+                    <ul>
+                        <li class="icon icon-arrow-left">
+                            <a class="icon icon-shop" href="#">Apps</a>
+                            <div class="mp-level">
+                                <h2 class="icon icon-shop">Apps</h2>
+                                <a class="mp-back" href="#">back</a>
+                                <ul>
+                                    <li><a class="icon icon-photo load-drawing">Drawing</a></li>
+                                    <li class="icon icon-arrow-left">
+                                    	<li><a class="icon icon-photo">Snake</a>
+                                    		<div class="mp-level" id="choose">
+		<!--                                <h2 class="icon icon-display">Pdf</h2>-->
+				                <a class="mp-back" href="#">back</a>
+						    <span id="divisionSnake">
+						    	<p id="division_textSnake"> CHOISSISEZ LA DISPOSITION DES DEUX ECRANS POUR JOUER</p>
+							<input  id="nbLignesSnake" type="number" min="1" placeholder = "Nombre de Lignes" value = 1 max = 2>
+							<input  id="nbColonnesSnake" type="number" min="1" placeholder = "Nombre de Colonnes" value = 1 disabled="true">
+							<br></br>
+							<button id ="configSnake" onclick="configSnake()">OK</button>
+						    </span>
+						    <br></br>
+						    <div id="inputsSnake"></div>
+						    <br></br>
+				                <div class="load-file load-snake">Load Snake</div>
+                                    	</li>
+                                    </li>
+                                    <li class="icon icon-arrow-left">
+                                    	<li><a class="icon icon-photo" href="#">Ping Pong</a>
+                                    		<div class="mp-level" id="choose">
+		<!--                                <h2 class="icon icon-display">Pdf</h2>-->
+				                <a class="mp-back" href="#">back</a>
+						    <span id="divisionPingPong">
+						    	<p id="division_textPingPong"> CHOISSISEZ LA DISPOSITION DES DEUX ECRANS POUR JOUER</p>
+							<input  id="nbLignesPingPong" type="number" min="1" placeholder = "Nombre de Lignes" value = 2 disabled="true">
+							<input  id="nbColonnesPingPong" type="number" min="1" placeholder = "Nombre de Colonnes" value = 1 disabled="true">
+							<br></br>
+							<button id ="configPingPong" onclick="configPingPong()">OK</button>
+						    </span>
+						    <br></br>
+						    <div id="inputsPingPong"></div>
+						    <br></br>
+				                <div class="load-file load-ping-pong">Load Ping Pong</div>
+				            </div>
+                                    	</li>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="icon icon-arrow-left">
+                            <a class="icon icon-photo" href="#">Pictures</a>
+                            <div class="mp-level">
+                                <h2 class="icon icon-news">Pictures</h2>
+                                <a class="mp-back" href="#">back</a>
+                                <ul>
+                                    <li class="icon icon-arrow-left">
+                                        <a class="icon icon-phone" href="#">Local File</a>
+                                        <div class="mp-level" id="choose">
+                                            <input class="input-file" type="file" id="input-picture">
+                                            <label for="input-picture" class="input-file-trigger" tabindex="0">Select a file...</label>
+                                            <p class="file-return"></p>
+                                            <span id="division">
+                                            	<p id="division_text"> CHOISSISEZ LE NOMBRE ET LA DISPOSITION DES ECRANS LIGNES/COLONNES</p>
+						<input  id="nbLignesPicture" type="number" min="1" placeholder = "Nombre de Lignes">
+						<input  id="nbColonnesPicture" type="number" min="1" placeholder = "Nombre de Colonnes">
+						<br></br>
+						<button id ="config" onclick="config()">OK</button>
+					    </span>
+					    <br></br>
+					    <div id="inputs"></div>
+					    <br></br>
+                                            <div class="load-file load-picture">Load Picture</div>
+                                        </div>
+                                    </li>
+                                    <li><a class="icon icon-phone" href="#">URL</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="icon icon-arrow-left">
+                            <a class="icon icon-display" href="#">Video</a>
+                            <div class="mp-level">
+                                <h2 class="icon icon-display">Video</h2>
+                                <a class="mp-back" href="#">back</a>
+                                <ul>
+                                    <li class="icon icon-arrow-left">
+                                        <a class="icon icon-phone" href="#">Local File</a>
+                                        <div class="mp-level" id="choose">
+                                            <input class="input-file" type="file" id="input-video-tiled-display">
+                                            <label for="input-video-tiled-display" class="input-file-trigger" tabindex="0">Select a file...</label>
+                                            <p class="file-return"></p>
+                                            <span id="divisionVideo">
+                                            	<p id="division_textVideo"> CHOISSISEZ LE NOMBRE ET LA DISPOSITION DES ECRANS LIGNES/COLONNES</p>
+						<input  id="nbLignesVideo" type="number" min="1" placeholder = "Nombre de Lignes">
+						<input  id="nbColonnesVideo" type="number" min="1" placeholder = "Nombre de Colonnes">
+						<br></br>
+						<button id ="configVideo" onclick="configVideo()">OK</button>
+					    </span>
+					    <br></br>
+					    <div id="inputsVideo"></div>
+					    <br></br>
+                                            <div class="load-file load-tiled-display">Load Video</div>
+                                        </div>
+
+                                    </li>
+                                    <li><a class="icon icon-phone" href="#">URL</a></li>
+                                    <!--<li class="icon icon-arrow-left">
+                                        <a class="icon icon-phone" href="#">Select Tables</a>
+                                        <div class="mp-level">
+                                            Select Tables
+                                            <div class="table_position" id="table_position_NW"><span>NW</span></div>
+                                            <div class="table_position" id="table_position_NE"><span>NE</span></div>
+                                            <div class="table_position" id="table_position_SW"><span>SW</span></div>
+                                            <div class="table_position" id="table_position_SE"><span>SE</span></div>
+                                        </div>
+
+                                    </li>-->
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="icon icon-arrow-left">
+                            <a class="icon icon-news" href="#">Pdf</a>
+                            <div class="mp-level" id="choose">
+<!--                                <h2 class="icon icon-display">Pdf</h2>-->
+                                <a class="mp-back" href="#">back</a>
+                                <input class="input-file" type="file" id="input-pdf">
+                                <label for="input-pdf" class="input-file-trigger" tabindex="0">Select a file...</label>
+                                <p class="file-return"></p>
+		                    <span id="divisionPDF">
+		                    	<p id="division_textPDF"> CHOISSISEZ LE NOMBRE ET LA DISPOSITION DES ECRANS LIGNES/COLONNES</p>
+					<input  id="nbLignesPDF" type="number" min="1" placeholder = "Nombre de Lignes">
+					<input  id="nbColonnesPDF" type="number" min="1" placeholder = "Nombre de Colonnes">
+					<br></br>
+					<button id ="configPDF" onclick="configPDF()">OK</button>
+				    </span>
+				    <br></br>
+				    <div id="inputsPDF"></div>
+				    <br></br>
+                                <div class="load-file load-pdf">Load PDF</div>
+                            </div>
+                        </li>
+                        <li class="icon icon-arrow-left">
+                            <a class="icon icon-photo" href="#">Shared Window</a>
+                            <div class="mp-level" id="choose">
+<!--                                <h2 class="icon icon-display">Pdf</h2>-->
+                                <a class="mp-back" href="#">back</a>
+		                    <span id="divisionSharedWindow">
+		                    	<p id="division_textSharedWindow"> CHOISSISEZ LE NOMBRE ET LA DISPOSITION DES ECRANS LIGNES/COLONNES</p>
+					<input  id="nbLignesSharedWindow" type="number" min="1" placeholder = "Nombre de Lignes">
+					<input  id="nbColonnesSharedWindow" type="number" min="1" placeholder = "Nombre de Colonnes">
+					<br></br>
+					<button id ="configSharedWindow" onclick="configSharedWindow()">OK</button>
+				    </span>
+				    <br></br>
+				    <div id="inputsSharedWindow"></div>
+				    <br></br>
+                                <div class="load-file load-shared-window">Load Shared Window</div>
+                            </div>
+                        </li>
+                        <li><a class="icon icon-wallet rotate-display-div">Rotate</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- /mp-menu -->
+            <div class="scroller">
+                <!-- this is for emulating position fixed of the nav -->
+                <!-- Top Navigation -->
+                <div class="codrops-top clearfix">
+                    PROJET TABLE TACTILE
+                    <span class="left"> <a class="codrops-icon codrops-icon-prev" href="http://air.imag.fr/index.php/Proj-2014-2015-SmartClassRoom"><span>Documentation</span></a></span>
+
+                    <span class="right"><a class="codrops-icon codrops-icon-drop" href="https://github.com/falle38/SmartClassroom-TiledDisplayPart"><span>Lien Github</span></a></span>
+                </div>
+                <div class="display">
+                    <div class="block clearfix">
+                       <div style='display:none;' id="bouton_menu"> <p><a href="#" id="trigger" class="menu-trigger"></a></p></div>
+                        <div class="chat">
+                        	<div style=" overflow:auto;width:300; height:300px; border:#000000 1px solid; display:none;" id="messages_div"><ul id="messages"></ul></div>
+                        	<div align="center" id="zone_online">
+					Vous n'êtes pas connecté !
+            				
+				    </div>
+					<div style='display:none;' id='partie_message' > 
+				    <form align="right" action="/" method="post" id="formulaire_chat">
+					    <input type="text" name="m" id="m" placeholder="Votre message..." size="50" autofocus />
+					    <input type="submit" id="envoi_message" value="Envoyer" />
+				    </form>
+				    <br>
+				    <form align="right" action="/" method="post" id="formulaire_reset">
+					    <input type="submit" id="reset_message" value="Reset" />
+				    </form>
+					<br>
+
+				    <form align="right" action="/" method="post" id="formulaire_exit">
+					    <input type="submit" id="quit_message" value="Quit" />
+				    </form>
+
+				    </div>
+				<span id="connexion">
+			        <input  id="pseudo" type="text" placeholder="Votre pseudo...">
+				<button id ="valide_pseudo" onclick="go()">Connexion</button>
+				</span>
+			        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+			     
+			        <script>
+			        	var pseudo;
+					var loc = location.href; 
+					var splt = loc.split(":"); 
+					var address = splt[0] + ":" + splt[1] + ":" + "3001";
+					var address2 = splt[0] + ":" + splt[1] + ":" + "8080";
+					var socket = io.connect(address);
+					var nbLignes;
+					var nbColonnes;
+					var currentClientConfig = false;
+					var choice = null;
+					var choiceReceived = null;
+					
+					var id = null;
+					now.receiveMessage = function(name, message){
+						if(id ==null){
+							id = message;
+						}
+					}
+  
+					window.onbeforeunload = function() {
+						id = null;
+						if (undefined != pseudo){
+							socket.emit('discoRefresh', pseudo);
+						}
+					}
+					
+				        $('#formulaire_chat').submit(function(){
+						socket.emit('chat message', $('#m').val());
+						$('#m').val('');
+						return false;
+					      });
+					      $('#formulaire_reset').submit(function () {
+							$('#messages').empty(); // Vide la zone de Chat et remet le focus dessus
+							return false; // Permet de bloquer l'envoi "classique" du formulaire
+						    });
+						    
+						    $('#formulaire_exit').submit(function () {
+						    	socket.emit('disco','disco');
+					    			//socket.disconnect();
+					    			return false; // Permet de bloquer l'envoi "classique" du formulaire
+							});
+							
+					function box (b) { 
+						if(b.checked){
+							currentClientConfig = true;
+							for (var i=0; i < nbLignes; i++) {
+								for (var j=0; j < nbColonnes; j++) {
+									id = choiceReceived + "," + j + "," + i;
+									if(b.id != id){
+										document.getElementById(id).disabled= true;
+									}
+								}
+							}
+							console.log("checked : " + b.id);
+							socket.emit('configCheck', b.id + "/:/" + pseudo, choiceReceived);
+							
+						}else{
+							currentClientConfig = false;
+							for (var i=0; i < nbLignes; i++) {
+								for (var j=0; j < nbColonnes; j++) {
+									id = choiceReceived + "," + j + "," + i;
+									boxes = document.getElementById(id);
+									if(!boxes.checked){
+										boxes.disabled= false;
+									}
+								}
+							}
+							console.log("uncheck : " + b.id);
+							socket.emit('configUnCheck', b.id);
+						}
+					}
+
+					socket.on('nbLignes/nbColonnes', function(LignesColonnes, choice) {
+									
+						var splt = LignesColonnes.split("*"); 
+						nbLignes = splt[0];
+						nbColonnes = splt[1];
+						choiceReceived = choice
+						console.log(choiceReceived);
+						if (choiceReceived == "Picture"){
+							document.getElementById("nbLignesPicture").value = nbLignes;
+							document.getElementById("nbColonnesPicture").value = nbColonnes;
+						
+							document.getElementById("inputs").innerHTML = "";
+						
+							$("#inputs").append("<p id='config_text'> CHOISSISEZ LA DISPOSITION DE CETTE TABLE DANS LA DIVISION </p>");
+							function getClickHandler(type, idx) { 
+								var myI=idx;
+								return function() {
+									$('.' + type + myI).each(function (){$(this).attr('checked', true);});
+								}
+							}
+						
+							for (var i=0; i < nbLignes; i++) {
+								for (var j=0; j < nbColonnes; j++) {
+							
+									$("#inputs").append("<input id='Picture," + j + "," + i +"'name='myRad' type='checkbox' onclick='box(this)' class='r" + i + " c" + j + "' value='r" + i + "c" + j + "' /\> ");
+								}
+								$("#inputs").append("<br/\>");
+							}
+						
+							$("#inputs").append('<br></br>');
+						}else if (choiceReceived == "Video"){
+							document.getElementById("nbLignesVideo").value = nbLignes;
+							document.getElementById("nbColonnesVideo").value = nbColonnes;
+						
+							document.getElementById("inputsVideo").innerHTML = "";
+						
+							$("#inputsVideo").append("<p id='config_textVideo'> CHOISSISEZ LA DISPOSITION DE CETTE TABLE DANS LA DIVISION </p>");
+							function getClickHandler(type, idx) { 
+								var myI=idx;
+								return function() {
+									$('.' + type + myI).each(function (){$(this).attr('checked', true);});
+								}
+							}
+						
+							for (var i=0; i < nbLignes; i++) {
+								for (var j=0; j < nbColonnes; j++) {
+							
+									$("#inputsVideo").append("<input id='Video," + j + "," + i +"'name='myRad' type='checkbox' onclick='box(this)' class='r" + i + " c" + j + "' value='r" + i + "c" + j + "' /\> ");
+								}
+								$("#inputsVideo").append("<br/\>");
+							}
+						
+							$("#inputsVideo").append('<br></br>');
+						}else if (choiceReceived == "PDF"){
+							document.getElementById("nbLignesPDF").value = nbLignes;
+							document.getElementById("nbColonnesPDF").value = nbColonnes;
+						
+							document.getElementById("inputsPDF").innerHTML = "";
+						
+							$("#inputsPDF").append("<p id='config_textPDF'> CHOISSISEZ LA DISPOSITION DE CETTE TABLE DANS LA DIVISION </p>");
+							function getClickHandler(type, idx) { 
+								var myI=idx;
+								return function() {
+									$('.' + type + myI).each(function (){$(this).attr('checked', true);});
+								}
+							}
+						
+							for (var i=0; i < nbLignes; i++) {
+								for (var j=0; j < nbColonnes; j++) {
+							
+									$("#inputsPDF").append("<input id='PDF," + j + "," + i +"'name='myRad' type='checkbox' onclick='box(this)' class='r" + i + " c" + j + "' value='r" + i + "c" + j + "' /\> ");
+								}
+								$("#inputsPDF").append("<br/\>");
+							}
+						
+							$("#inputsPDF").append('<br></br>');
+						}else if (choiceReceived == "SharedWindow"){
+							document.getElementById("nbLignesSharedWindow").value = nbLignes;
+							document.getElementById("nbColonnesSharedWindow").value = nbColonnes;
+						
+							document.getElementById("inputsSharedWindow").innerHTML = "";
+						
+							$("#inputsPDF").append("<p id='config_textSharedWindow'> CHOISSISEZ LA DISPOSITION DE CETTE TABLE DANS LA DIVISION </p>");
+							function getClickHandler(type, idx) { 
+								var myI=idx;
+								return function() {
+									$('.' + type + myI).each(function (){$(this).attr('checked', true);});
+								}
+							}
+						
+							for (var i=0; i < nbLignes; i++) {
+								for (var j=0; j < nbColonnes; j++) {
+							
+									$("#inputsSharedWindow").append("<input id='SharedWindow," + j + "," + i +"'name='myRad' type='checkbox' onclick='box(this)' class='r" + i + " c" + j + "' value='r" + i + "c" + j + "' /\> ");
+								}
+								$("#inputsSharedWindow").append("<br/\>");
+							}
+						
+							$("#inputsPingPong").append('<br></br>');
+						}else if (choiceReceived == "PingPong"){
+							document.getElementById("nbLignesPingPong").value = nbLignes;
+							document.getElementById("nbColonnesPingPong").value = nbColonnes;
+						
+							document.getElementById("inputsPingPong").innerHTML = "";
+						
+							$("#inputsPingPong").append("<p id='config_textPingPong'> CHOISSISEZ LA DISPOSITION DE CETTE TABLE DANS LA DIVISION </p>");
+							function getClickHandler(type, idx) { 
+								var myI=idx;
+								return function() {
+									$('.' + type + myI).each(function (){$(this).attr('checked', true);});
+								}
+							}
+						
+							for (var i=0; i < nbLignes; i++) {
+								for (var j=0; j < nbColonnes; j++) {
+							
+									$("#inputsPingPong").append("<input id='PingPong," + j + "," + i +"'name='myRad' type='checkbox' onclick='box(this)' class='r" + i + " c" + j + "' value='r" + i + "c" + j + "' /\> ");
+								}
+								$("#inputsPingPong").append("<br/\>");
+							}
+						
+							$("#inputsPingPong").append('<br></br>');
+						}else if (choiceReceived == "Snake"){
+							document.getElementById("nbLignesSnake").value = nbLignes;
+							document.getElementById("nbColonnesSnake").value = nbColonnes;
+						
+							document.getElementById("inputsSnake").innerHTML = "";
+						
+							$("#inputsSnake").append("<p id='config_textSnake'> CHOISSISEZ LA DISPOSITION DE CETTE TABLE DANS LA DIVISION </p>");
+							function getClickHandler(type, idx) { 
+								var myI=idx;
+								return function() {
+									$('.' + type + myI).each(function (){$(this).attr('checked', true);});
+								}
+							}
+						
+							for (var i=0; i < nbLignes; i++) {
+								for (var j=0; j < nbColonnes; j++) {
+							
+									$("#inputsSnake").append("<input id='Snake," + j + "," + i +"'name='myRad' type='checkbox' onclick='box(this)' class='r" + i + " c" + j + "' value='r" + i + "c" + j + "' /\> ");
+								}
+								$("#inputsSnake").append("<br/\>");
+							}
+						
+							$("#inputsSnake").append('<br></br>');
+						}
+					});
+					
+					socket.on('configCheck', function(id) {
+						document.getElementById(id).checked = true;
+						document.getElementById(id).disabled= true;
+					});
+					
+					
+					socket.on('configUnCheck', function(id) {
+						document.getElementById(id).checked = false;
+						if (!currentClientConfig){
+							document.getElementById(id).disabled= false;
+						}
+					});
+						
+					// On demande le pseudo, on l'envoie au serveur et on l'affiche dans le titre
+				 
+				 	function go() {
+					    pseudo = document.getElementById("pseudo").value;
+					    var elem = document.getElementById('pseudo');
+    					    elem.parentNode.removeChild(elem);
+    					    elem = document.getElementById('valide_pseudo');
+    					    elem.parentNode.removeChild(elem);
+
+    					    document.getElementById('partie_message').style.display = 'block';
+    					    document.getElementById('messages_div').style.display = 'block';
+    					    document.getElementById('bouton_menu').style.display = 'block';
+
+					    socket.emit('nouveau_client', id + "/:/" + pseudo);
+					      document.title = pseudo;
+					      
+						    socket.on('list_client', function(people) {
+							insereMembers(people);
+						    });
+						    socket.on('list_client12', function(people) {
+						    	insereMembers(people);
+								});
+								socket.on('list_client1', function(people) {
+									socket.disconnect(); 
+									location.replace(address2);
+								});
+
+
+						    // Quand un nouveau client se connecte, on affiche l'information
+						    socket.on('nouveau_client', function(pseudo) {
+							$('#messages').prepend('<p><em>' + pseudo + ' a rejoint le Chat !</em></p>');
+						    });
+					      socket.on('chat message', function(msg){
+						$('#messages').append($('<li>').text(msg));
+						document.getElementById("messages_div").scrollTop = document.getElementById("messages_div").scrollHeight;
+					      });
+					}
+					// Liste Personne en Ligne
+					    function insereMembers(people) {
+					    	$('#zone_online').empty();
+					    	
+					    	for (var i = 0; i < people.length; i++) {
+				    				$('#zone_online').prepend(people[i]+'<br>');
+				  				}
+				  				$('#zone_online').prepend('<p><strong>ONLINE : </strong> </p>');
+					    	
+					    }
+
+					function config() {
+						choice = "Picture";
+						socket.emit('nbLignes/nbColonnes',document.getElementById("nbLignesPicture").value + "*" + document.getElementById("nbColonnesPicture").value, choice);
+						
+					}
+					
+					function configVideo() {
+						choice = "Video";	
+						socket.emit('nbLignes/nbColonnes',document.getElementById("nbLignesVideo").value + "*" + document.getElementById("nbColonnesVideo").value, choice);
+						
+					}
+					
+					function configPDF() {
+						choice = "PDF";	
+						socket.emit('nbLignes/nbColonnes',document.getElementById("nbLignesPDF").value + "*" + document.getElementById("nbColonnesPDF").value, choice);
+						
+					}
+					
+					function configSharedWindow() {
+						choice = "SharedWindow";	
+						socket.emit('nbLignes/nbColonnes',document.getElementById("nbLignesSharedWindow").value + "*" + document.getElementById("nbColonnesSharedWindow").value, choice);
+						
+					}
+					
+					function configPingPong() {
+						choice = "PingPong";	
+						socket.emit('nbLignes/nbColonnes',document.getElementById("nbLignesPingPong").value + "*" + document.getElementById("nbColonnesPingPong").value, choice);
+						
+					}
+					
+					function configSnake() {
+						choice = "Snake";	
+						socket.emit('nbLignes/nbColonnes',document.getElementById("nbLignesSnake").value + "*" + document.getElementById("nbColonnesSnake").value, choice);
+						
+					}
+					
+			        </script>
+                        </div>
+                    </div>
+                </div><!-- /scroller-inner -->
+            </div><!-- /scroller -->
+        </div><!-- /pusher -->
+    </div><!-- /container -->
+
+    <script>
+
+    </script>
+</body>
+</html>
